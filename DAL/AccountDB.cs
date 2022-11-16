@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class AccountDB
+    public class AccountDB : IAccountDB
     {
         private IConfiguration Configuration { get; }
 
@@ -25,7 +25,7 @@ namespace DAL
 
             try
             {
-                using(SqlConnection cn = new SqlConnection(connectionString))
+                using (SqlConnection cn = new SqlConnection(connectionString))
                 {
                     string query = "SELECT * FROM Accounts WHERE accountNbOwner = @nb";
                     SqlCommand cmd = new SqlCommand(query, cn);
@@ -33,7 +33,7 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@nb", owner);
                     cn.Open();
 
-                    using(SqlDataReader dr = cmd.ExecuteReader())
+                    using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
                         {
