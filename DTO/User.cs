@@ -7,6 +7,5 @@
         public string lastName { get; set; }
         public string salt { get; set; }
         public string password { get; set; }
-        public List<Account> accounts { get; set; }
     }
 }
