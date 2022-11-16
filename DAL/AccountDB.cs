@@ -66,5 +66,31 @@ namespace DAL
 
             return result;
         }
+
+        public void createAccount(Account account)
+        {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            try
+            {
+                using(SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    string query = "INSERT INTO Accounts(accountNbOwner, type, amount) " +
+                        "VALUES(@owner, @type, @amount)";
+                    SqlCommand cmd = new SqlCommand(query, cn);
+
+                    cmd.Parameters.AddWithValue("@owner", account.accountNbOwner);
+                    cmd.Parameters.AddWithValue("@type", account.type);
+                    cmd.Parameters.AddWithValue("@amount", account.amount);
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }
