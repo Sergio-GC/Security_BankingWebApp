@@ -1,3 +1,6 @@
+using BLL;
+using DAL;
+
 namespace BankingWebApp
 {
     public class Program
@@ -8,6 +11,14 @@ namespace BankingWebApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // BLL
+            builder.Services.AddScoped<IAccountManager, AccountManager>();
+            builder.Services.AddScoped<IUserManager, UserManager>();
+
+            // DAL
+            builder.Services.AddScoped<IAccountDB, AccountDB>();
+            builder.Services.AddScoped<IUserDB, UserDB>();
 
             var app = builder.Build();
 
